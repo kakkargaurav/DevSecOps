@@ -49,6 +49,8 @@ jobs:
     strategy:
       matrix:
         environment: [BADEV, T4]
+    environment:
+      name: ${{ matrix.environment }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -107,6 +109,8 @@ jobs:
     strategy:
       matrix:
         environment: [T2, T5, NFT]
+    environment:
+      name: ${{ matrix.environment }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -162,6 +166,8 @@ jobs:
     name: Deploy Staging
     needs: [E2E-Functional-Test, E2E-Performance-Test]
     runs-on: ubuntu-latest
+    environment:
+      name: STG
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -196,6 +202,8 @@ jobs:
     name: Deploy Production
     needs: Smoke-Tests
     runs-on: ubuntu-latest
+    environment:
+      name: PROD
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
