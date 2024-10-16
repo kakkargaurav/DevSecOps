@@ -1,0 +1,183 @@
+name: DevSecOps Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Security_Scans:
+    name: Security Scans
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: security
+
+      - name: Run SAST (Static Application Security Testing)
+        run: |
+          echo "Running SAST Scans..."
+          # Add SAST tool commands here
+
+  Build:
+    name: Build and Test
+    needs: security_scans
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Package
+        run: mvn clean package
+        
+  Deploy_BADEV_T4:
+    name: Deploy to BADEV and T4
+    needs: Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: [BADEV, T4]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to ${{ matrix.environment }}
+        run: |
+          echo "Deploying to ${{ matrix.environment }}..."
+          # Add deployment script here (e.g., kubectl, Terraform)
+
+  Functional-Test:
+    name: System Functional Tests
+    needs: Deploy_BADEV_T4
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Functional Test
+        run: mvn clean test
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: functional-report
+          path: target/Extent
+
+  Performance-Test:
+    name: System Performance Tests
+    needs: Deploy_BADEV_T4
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Performance Test
+        run: mvn gatling:test
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nft-report
+          path: target/gatling
+
+  Deploy_T2_T5_NFT:
+    name: Deploy to T2, T5, and NFT
+    needs: [Functional-Test, Performance-Test]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: [T2, T5, NFT]
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to ${{ matrix.environment }}
+        run: |
+          echo "Deploying to ${{ matrix.environment }}..."
+          # Add deployment script here
+
+  E2E-Functional-Test:
+    name: E2E Functional Tests
+    needs: Deploy_T2_T5_NFT
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Functional Test
+        run: mvn clean test
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: functional-report
+          path: target/Extent
+
+  E2E-Performance-Test:
+    name: E2E Performance Tests
+    needs: Deploy_T2_T5_NFT
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Performance Test
+        run: mvn gatling:test
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: nft-report
+          path: target/gatling
+
+  deploy_stg:
+    name: Deploy to STG
+    needs: [E2E-Functional-Test, E2E-Performance-Test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to STG
+        run: |
+          echo "Deploying to STG..."
+          # Add deployment script here
+
+  deploy_prod:
+    name: Deploy to PROD
+    needs: deploy_stg
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to PROD
+        run: |
+          echo "Deploying to PROD..."
+          # Add deployment script here
