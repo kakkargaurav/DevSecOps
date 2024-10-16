@@ -129,12 +129,12 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Functional Test
+      - name: E2E Functional Test
         run: mvn clean test
 
       - uses: actions/upload-artifact@v4
         with:
-          name: functional-report
+          name: e2e-functional-report
           path: target/Extent
 
   E2E-Performance-Test:
@@ -150,12 +150,12 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Performance Test
-        run: mvn gatling:test
+      - name: E2E Performance Test
+        run: mvn clean gatling:test
 
       - uses: actions/upload-artifact@v4
         with:
-          name: nft-report
+          name: e2e-nft-report
           path: target/gatling
 
   deploy_stg:
