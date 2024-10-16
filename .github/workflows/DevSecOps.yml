@@ -171,9 +171,30 @@ jobs:
           echo "Deploying to STG..."
           # Add deployment script here
 
+  Smoke-Tests:
+    name: Smoke Tests
+    needs: deploy_stg
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Smoke Tests
+        run: mvn clean test
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: smoke-test-report
+          path: target/Extent
+
   deploy_prod:
     name: Deploy to PROD
-    needs: deploy_stg
+    needs: Smoke-Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
