@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Responsive Fight" parallel="none" >
+		<test name="RF - Bus Challenge Edge" preserve-order="true">
+			<classes><class name="tests.responsivefight.busChallenge"></class></classes>
+			<parameter name="Browser" value="edge" />
+			<parameter name="Groups" value="WEB,ResponsiveFight,Bus" />
+			<parameter name="Author" value="GauravK" />
+		</test>
+	<listeners>
+		<listener class-name="com.gaurav.listener.CommonTestListener" />
+	</listeners>		
+</suite>
