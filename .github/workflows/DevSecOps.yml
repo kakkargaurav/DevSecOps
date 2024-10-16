@@ -13,10 +13,10 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Run CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
-        with:
-          category: security
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/maven@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
       - name: Run SAST (Static Application Security Testing)
         run: |
@@ -24,7 +24,7 @@ jobs:
           # Add SAST tool commands here
 
   Build:
-    name: Build and Test
+    name: Build and Package
     needs: security_scans
     runs-on: ubuntu-latest
     steps:
