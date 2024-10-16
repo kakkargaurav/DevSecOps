@@ -33,8 +33,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>17</source>
+					<target>17</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -131,19 +131,40 @@
 		</dependency>
 		<dependency>
 		    <groupId>org.slf4j</groupId>
-		    <artifactId>slf4j-log4j12</artifactId>
+		    <artifactId>slf4j-reload4j</artifactId>
 		    <version>2.0.16</version>
 		    <scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>
-			<version>4.22.0</version>
+			<version>4.25.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-remote-driver</artifactId>
-			<version>4.22.0</version>
+			<version>4.25.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-api</artifactId>
+			<version>4.25.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-chrome-driver</artifactId>
+			<version>4.25.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-edge-driver</artifactId>
+			<version>4.25.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-firefox-driver</artifactId>
+			<version>4.25.0</version>
 		</dependency>
 		<dependency>
 		    <groupId>io.rest-assured</groupId>
@@ -163,7 +184,18 @@
 	    <dependency>
 	        <groupId>com.microsoft.edge</groupId>
 	        <artifactId>msedge-selenium-tools-java</artifactId>
-	        <version>3.141.0</version>
+	        <version>3.141.1</version>
 	    </dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.minidev</groupId>
+			<artifactId>json-smart</artifactId>
+			<version>2.5.0</version>
+		</dependency>
 	</dependencies>
 </project>

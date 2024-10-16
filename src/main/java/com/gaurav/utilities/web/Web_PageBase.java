@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -57,7 +58,7 @@ public abstract class Web_PageBase {
 	}
 	
     public void waitForElementVisible(WebElement element){
-    	WebDriverWait wait = new WebDriverWait(driver, 60);
+    	WebDriverWait wait = new WebDriverWait(driver, Duration.ofMinutes(1));
     	wait.until(ExpectedConditions.visibilityOf(element));
     }
     

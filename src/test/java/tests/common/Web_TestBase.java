@@ -5,12 +5,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
-import com.microsoft.edge.seleniumtools.EdgeDriver;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
+
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 // Standard Java Libraries
@@ -21,7 +21,6 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
 import com.gaurav.report.ExtentReport;
-import com.microsoft.edge.seleniumtools.EdgeOptions;
 //Extent Reports Libraries
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
@@ -91,7 +90,7 @@ public abstract class Web_TestBase {
 			options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
 			options.addArguments("--no-sandbox");
 			options.addArguments("--headless");
-			driver = new EdgeDriver(options);
+			driver = new org.openqa.selenium.edge.EdgeDriver(options);
 			driver.manage().window().maximize();
 	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		} else if(browser.equalsIgnoreCase("chrome")) {
@@ -169,9 +168,18 @@ public abstract class Web_TestBase {
 	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		}else{
 			WebDriverManager.edgedriver().setup();
-			driver = new EdgeDriver();
+			EdgeOptions options = new EdgeOptions();
+			options.addArguments("start-maximized"); // open Browser in maximized mode
+			options.addArguments("disable-infobars"); // disabling infobars
+			options.addArguments("--disable-extensions"); // disabling extensions
+			options.addArguments("--disable-gpu"); // applicable to windows os only
+			options.addArguments("--disable-dev-shm-usage"); // overcome limited resource problems
+			options.addArguments("--no-sandbox");
+			options.addArguments("--headless");
+			driver = new org.openqa.selenium.edge.EdgeDriver(options);
 			driver.manage().window().maximize();
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+			driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 		}
 		ctx.setAttribute("driver", driver);
 	}
@@ -183,7 +191,7 @@ public abstract class Web_TestBase {
 			Runtime.getRuntime().exec("taskkill /im chromedriver.exe /f");
 			Runtime.getRuntime().exec("taskkill /im geckodriver.exe /f");
 			Runtime.getRuntime().exec("taskkill /im IEDriverServer.exe /f");
-		} catch (IOException e) {
+		} catch (IOException ignored) {
 			
 		}
 	}
