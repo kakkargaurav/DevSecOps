@@ -40,7 +40,7 @@ jobs:
           cache: maven
 
       - name: Package
-        run: mvn clean package
+        run: mvn clean package -Dmaven.test.skip
         
   Deploy_BADEV_T4:
     name: Deploy

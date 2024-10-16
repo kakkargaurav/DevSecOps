@@ -31,7 +31,7 @@ public class CommonTestListener extends TestListenerAdapter {
 	 *              and Database connection
 	 ************************************************************/
 	public void onStart(ITestContext iTestContext) {
-		
+
 	}
 
 	@Override
