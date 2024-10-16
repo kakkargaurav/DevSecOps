@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -21,9 +23,6 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 
 import com.gaurav.report.ExtentReport;
-//Extent Reports Libraries
-import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -61,9 +60,9 @@ public abstract class Web_TestBase {
 	@AfterTest
 	protected void AfterTest(ITestContext testContext) {
 		ExtentTest extentTest = (ExtentTest) testContext.getAttribute("ExtentTest");
-		if (extentTest.getRunStatus().equals(LogStatus.UNKNOWN))
+		if (extentTest.getStatus().equals(Status.SKIP))
 		{
-			extentTest.log(LogStatus.SKIP, "This test method is skipped");
+			extentTest.log(Status.SKIP, "This test method is skipped");
 		}
 		ExtentReport.endTest(extentTest);
 		this.stopBrowser(testContext);

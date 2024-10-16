@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 
 // TestNG Libraries
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -12,8 +14,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import com.gaurav.report.ExtentReport;
-import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
+
 
 public abstract class API_TestBase {
 
@@ -50,9 +51,9 @@ public abstract class API_TestBase {
 	@AfterMethod
 	protected void AfterMethod(ITestContext testContext) {
 		ExtentTest extentTest = (ExtentTest) testContext.getAttribute("ExtentTest");
-		if (extentTest.getRunStatus().equals(LogStatus.UNKNOWN))
+		if (extentTest.getStatus().equals(Status.SKIP))
 		{
-			extentTest.log(LogStatus.SKIP, "This test method is skipped");
+			extentTest.log(Status.SKIP, "This test method is skipped");
 		}
 		ExtentReport.endTest(extentTest);
 	}

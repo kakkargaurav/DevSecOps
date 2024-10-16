@@ -1,5 +1,8 @@
 package com.gaurav.listener;
 
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.Status;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -7,8 +10,6 @@ import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
-import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
 
 public class CommonTestListener extends TestListenerAdapter {
 
@@ -69,17 +70,17 @@ public class CommonTestListener extends TestListenerAdapter {
 		if(testContext.getAttribute("TestTech").toString().equals("Web")) {
 			WebDriver driver = (WebDriver) testContext.getAttribute("driver");
 			Base64Image = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
-			extentTest.log(LogStatus.FAIL, "<html><body><font color=\"red\">Failure Screenshot</font></body></html>", 
-					extentTest.addBase64ScreenShot("data:image/png;base64," + Base64Image));
+			extentTest.log(Status.FAIL, "<html><body><font color=\"red\">Failure Screenshot</font></body></html>",
+					MediaEntityBuilder.createScreenCaptureFromBase64String("data:image/png;base64," +Base64Image).build());
 		}
 		
 
 		// Construct the comments
 		String testName = testContext.getName();
 		if (!(iTestResult.getThrowable() == null)) {
-			extentTest.log(LogStatus.FAIL, "<html><body><font color=\"red\">Failure Cause</font></body></html>", iTestResult.getThrowable());
+			extentTest.log(Status.FAIL, iTestResult.getThrowable());
 		} else {
-			extentTest.log(LogStatus.FAIL, testName, "No error message avaialble !!");
+			extentTest.log(Status.FAIL, "No error message avaialble !!");
 		}
 		
 		
@@ -95,8 +96,8 @@ public class CommonTestListener extends TestListenerAdapter {
 			if(result.getTestContext().getAttribute("TestTech").toString().equals("Web")){
 					WebDriver driver = (WebDriver) result.getTestContext().getAttribute("driver");
 					Base64Image = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BASE64);
-					extentTest.log(LogStatus.PASS, "<html><body><font color=\"green\">Final Screenshot</font></body></html>", 
-							extentTest.addBase64ScreenShot("data:image/png;base64," + Base64Image));
+				extentTest.log(Status.PASS, "<html><body><font color=\"Green\">Final Screenshot</font></body></html>",
+						MediaEntityBuilder.createScreenCaptureFromBase64String("data:image/png;base64," +Base64Image).build());
 				}
 			
 		

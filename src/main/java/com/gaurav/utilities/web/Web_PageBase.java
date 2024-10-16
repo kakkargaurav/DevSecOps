@@ -9,6 +9,9 @@ import java.net.UnknownHostException;
 import java.time.Duration;
 import java.util.List;
 
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.MediaEntityBuilder;
+import com.aventstack.extentreports.Status;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
@@ -22,8 +25,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestContext;
 
-import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
 
 public abstract class Web_PageBase {
 	protected WebElement webelement;
@@ -42,14 +43,13 @@ public abstract class Web_PageBase {
 		this.driver=(WebDriver) testContext.getAttribute("driver");
 	}
 	
-	public void writeExtentComment(String comment, LogStatus Extentlogstatus) {
+	public void writeExtentComment(String comment, Status Extentlogstatus) {
 		extentTest.log(Extentlogstatus, comment);				
 	}
 	
-	public void writeExtentCommentWithScreenshot(String comment, LogStatus Extentlogstatus) {
-		String stepname=Thread.currentThread().getStackTrace()[2].getMethodName();
+	public void writeExtentCommentWithScreenshot(String comment, Status Extentlogstatus) {
 		String Base64Image = this.createScreenshot();
-		extentTest.log(Extentlogstatus, stepname, comment + extentTest.addBase64ScreenShot("data:image/png;base64," +Base64Image));
+		extentTest.log(Extentlogstatus, comment , MediaEntityBuilder.createScreenCaptureFromBase64String("data:image/png;base64," +Base64Image).build());
 		
 	}
 	public String createScreenshot() {

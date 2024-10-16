@@ -15,6 +15,8 @@ import static org.testng.Assert.assertEquals;
 import java.io.File;
 import java.util.List;
 
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,8 +24,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.testng.ITestContext;
 import org.testng.Reporter;
 
-import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
+
 
 import io.restassured.RestAssured;
 import io.restassured.http.Header;
@@ -45,12 +46,12 @@ public abstract class API_Base  {
 	
 	protected API_Base(ITestContext testContext) {
 		this.testContext = testContext;
-		this.extentTest = (ExtentTest)testContext.getAttribute("ExtentTest");	
+		this.extentTest = (ExtentTest)testContext.getAttribute("ExtentTest");
 		this.testName = testContext.getName();
 	}
 	
 
-	public void writeExtentComment(String comment, LogStatus Extentlogstatus) {
+	public void writeExtentComment(String comment, Status Extentlogstatus) {
 		extentTest.log(Extentlogstatus, comment);				
 	}
 	
@@ -60,7 +61,7 @@ public abstract class API_Base  {
 	public void reportResponse() {
 		
 			String stepname=Thread.currentThread().getStackTrace()[2].getMethodName();
-			extentTest.log(LogStatus.INFO, resp.asString());	
+			extentTest.log(Status.INFO, resp.asString());
 			Reporter.log("<br><br>"+stepname+" : "+ resp.asString());
 			
 	}

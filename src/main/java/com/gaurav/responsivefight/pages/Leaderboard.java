@@ -1,5 +1,6 @@
 package com.gaurav.responsivefight.pages;
 
+import com.aventstack.extentreports.Status;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,7 +10,7 @@ import org.testng.Assert;
 import org.testng.ITestContext;
 
 import com.gaurav.utilities.web.Web_PageBase;
-import com.relevantcodes.extentreports.LogStatus;
+
 
 public class Leaderboard extends Web_PageBase {
 	WebDriver driver;
@@ -40,7 +41,7 @@ public class Leaderboard extends Web_PageBase {
     	scrollElementToView(we);
     	
     	//report comment
-    	writeExtentCommentWithScreenshot("Leaderboard : Score matched for user "+user+" as "+score, LogStatus.PASS);
+    	writeExtentCommentWithScreenshot("Leaderboard : Score matched for user "+user+" as "+score, Status.PASS);
     }
 	
 	
@@ -57,7 +58,7 @@ public class Leaderboard extends Web_PageBase {
     	highLightElement(we2);;
     	
     	//report comment
-    	 writeExtentCommentWithScreenshot("Leaderboard : User ID for  "+user+" is "+we.getText(), LogStatus.PASS);
+    	 writeExtentCommentWithScreenshot("Leaderboard : User ID for  "+user+" is "+we.getText(), Status.PASS);
     }
 	
    

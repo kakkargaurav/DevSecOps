@@ -1,5 +1,6 @@
 package com.gaurav.responsivefight.pages;
 
+import com.aventstack.extentreports.Status;
 import org.testng.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,7 +9,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.ITestContext;
 
 import com.gaurav.utilities.web.Web_PageBase;
-import com.relevantcodes.extentreports.LogStatus;
 
 public class Covid extends Web_PageBase {
 	WebDriver driver;
@@ -41,7 +41,7 @@ public class Covid extends Web_PageBase {
     	waitForElementVisible(title);
 		
     	Assert.assertTrue(title.getText().equals("Choose your battle field "+user));
-    	 writeExtentCommentWithScreenshot("Covid : Title Verified", LogStatus.PASS);
+    	 writeExtentCommentWithScreenshot("Covid : Title Verified", Status.PASS);
     }
 	
 	public void startAreYouGame(){
@@ -51,7 +51,7 @@ public class Covid extends Web_PageBase {
     	//click Are You game btn
     	newsBtn.click();
     	
-    	 writeExtentCommentWithScreenshot("Covid : Are you Game started", LogStatus.PASS);
+    	 writeExtentCommentWithScreenshot("Covid : Are you Game started", Status.PASS);
     }
 	
 	public void takeTheBus(){
@@ -61,7 +61,7 @@ public class Covid extends Web_PageBase {
     	//click Are You game btn
     	busBtn.click();
     	
-    	 writeExtentCommentWithScreenshot("Covid : Take the bus started", LogStatus.PASS);
+    	 writeExtentCommentWithScreenshot("Covid : Take the bus started", Status.PASS);
     }
 	
 	public void goToPublicPlace(){
@@ -71,7 +71,7 @@ public class Covid extends Web_PageBase {
     	//click Are You game btn
     	restaurantBtn.click();
     	
-    	 writeExtentCommentWithScreenshot("Covid : Go to a public place started", LogStatus.PASS);
+    	 writeExtentCommentWithScreenshot("Covid : Go to a public place started", Status.PASS);
     }
 	
 	public void goToTheOffice(){
@@ -81,7 +81,7 @@ public class Covid extends Web_PageBase {
     	//officeBtn Are You game btn
     	newsBtn.click();
     	
-    	 writeExtentCommentWithScreenshot("Covid : Go to the office started", LogStatus.PASS);
+    	 writeExtentCommentWithScreenshot("Covid : Go to the office started", Status.PASS);
     }
 	
 	

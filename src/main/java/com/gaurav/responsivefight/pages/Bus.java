@@ -1,5 +1,6 @@
 package com.gaurav.responsivefight.pages;
 
+import com.aventstack.extentreports.Status;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,7 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.ITestContext;
 
 import com.gaurav.utilities.web.Web_PageBase;
-import com.relevantcodes.extentreports.LogStatus;
+
 
 public class Bus extends Web_PageBase {
 	WebDriver driver;
@@ -42,7 +43,7 @@ public class Bus extends Web_PageBase {
 		
     	busTimerBtn.click();
     	
-    	 writeExtentCommentWithScreenshot("Bus : Challenge Started", LogStatus.PASS);
+    	 writeExtentCommentWithScreenshot("Bus : Challenge Started", Status.PASS);
     }
 	
 	public void busQuestion1(){
@@ -51,7 +52,7 @@ public class Bus extends Web_PageBase {
 		
     	busAnswer1.click();
     	
-    	 writeExtentCommentWithScreenshot("Bus : Challenge Started", LogStatus.PASS);
+    	 writeExtentCommentWithScreenshot("Bus : Challenge Started", Status.PASS);
     }
 	
 	public void tryNextBattle(){
@@ -60,7 +61,7 @@ public class Bus extends Web_PageBase {
 		
     	nextBattleBtn.click();
     	
-    	 writeExtentCommentWithScreenshot("Bus : Next Battle Started", LogStatus.PASS);
+    	 writeExtentCommentWithScreenshot("Bus : Next Battle Started", Status.PASS);
     }
 	
 	public void goToLeaderBoard(){
@@ -69,7 +70,7 @@ public class Bus extends Web_PageBase {
 		
     	checkYourFinalScoreBtn.click();
     	
-    	 writeExtentCommentWithScreenshot("Bus : Navigate to leaderboard", LogStatus.PASS);
+    	 writeExtentCommentWithScreenshot("Bus : Navigate to leaderboard", Status.PASS);
     }
 	
 	

@@ -1,5 +1,6 @@
 package com.gaurav.supervillain.pages;
 
+import com.aventstack.extentreports.Status;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.json.JSONException;
 import org.testng.ITestContext;
@@ -7,7 +8,7 @@ import org.testng.ITestContext;
 import com.gaurav.utilities.api.API_Base;
 import com.gaurav.utilities.api.HttpOperation;
 import com.jayway.jsonpath.JsonPath;
-import com.relevantcodes.extentreports.LogStatus;
+
 
 import net.minidev.json.JSONArray;
 
@@ -27,7 +28,7 @@ public class SuperVillain  extends API_Base{
 		JSONArray userid = JsonPath.read(resp, "$.[?(@.username == '"+user+"')].user_id");
 		JSONArray score = JsonPath.read(resp, "$.[?(@.username == '"+user+"')].score");
 		
-		writeExtentComment("ListUser : "+user+" user found with user id : "+userid.get(0).toString()+" and score :"+score.get(0).toString(), LogStatus.PASS);
+		writeExtentComment("ListUser : "+user+" user found with user id : "+userid.get(0).toString()+" and score :"+score.get(0).toString(), Status.PASS);
 	}
 	
 	public String addUser(){
@@ -45,7 +46,7 @@ public class SuperVillain  extends API_Base{
 		reportResponse();
 		assertIt(201);
 		
-		writeExtentComment("AddUser : "+user+" user added with score "+score, LogStatus.PASS);
+		writeExtentComment("AddUser : "+user+" user added with score "+score, Status.PASS);
 		
 		return user;
 	}
@@ -61,7 +62,7 @@ public class SuperVillain  extends API_Base{
 		callIt();
 		reportResponse();
 		assertIt(201);
-		writeExtentComment("UpdateUser : "+user+" User has been updated with score "+score, LogStatus.PASS);
+		writeExtentComment("UpdateUser : "+user+" User has been updated with score "+score, Status.PASS);
 		return score;
 	}
 	
@@ -76,9 +77,9 @@ public class SuperVillain  extends API_Base{
 		JSONArray score = JsonPath.read(resp, "$.[?(@.username == '"+user+"')].score");
 
 		if(score.get(0).toString().equalsIgnoreCase(Expectedscore))
-			writeExtentComment("ListUser : "+user+" user found with user id : "+userid.get(0).toString()+" and score :"+score.get(0).toString(), LogStatus.PASS);
+			writeExtentComment("ListUser : "+user+" user found with user id : "+userid.get(0).toString()+" and score :"+score.get(0).toString(), Status.PASS);
 		else
-			writeExtentComment("ListUser : "+user+" user found with user id : "+userid.get(0).toString()+" and actual score :"+score.get(0).toString()+" which did not matched to expected score "+Expectedscore, LogStatus.FAIL);
+			writeExtentComment("ListUser : "+user+" user found with user id : "+userid.get(0).toString()+" and actual score :"+score.get(0).toString()+" which did not matched to expected score "+Expectedscore, Status.FAIL);
 	}
 	
 	public void deleteUser(String user){
@@ -90,11 +91,11 @@ public class SuperVillain  extends API_Base{
 		callIt();
 		reportResponse();
 		assertIt(401);
-		writeExtentComment("ListUser : "+user+" cannot be deleted due to Unauthorized", LogStatus.PASS);
+		writeExtentComment("ListUser : "+user+" cannot be deleted due to Unauthorized", Status.PASS);
 	}
 
 	public void sampleTest(){
-		writeExtentComment("SampleTest : logging", LogStatus.PASS);
+		writeExtentComment("SampleTest : logging", Status.PASS);
 	}
 
 }

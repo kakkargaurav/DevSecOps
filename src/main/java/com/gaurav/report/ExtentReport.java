@@ -2,8 +2,10 @@ package com.gaurav.report;
 
 import java.io.File;
 
-import com.relevantcodes.extentreports.ExtentReports;
-import com.relevantcodes.extentreports.ExtentTest;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+
 
 public class ExtentReport {
 	
@@ -11,8 +13,9 @@ public class ExtentReport {
 	//private static ExtentTest test;
 	
 	public static void startReport() {
-		extent = new ExtentReports(System.getProperty("user.dir") + "/target/Extent/ExtentReport.html", false);
-		extent.loadConfig(new File("ReportConfiguration.xml"));
+		extent = new ExtentReports();
+		ExtentSparkReporter spark = new ExtentSparkReporter("target/Extent/ExtentReport.html");
+		extent.attachReporter(spark);
 		
 	}
 	
@@ -24,12 +27,6 @@ public class ExtentReport {
 	public static void endReport() {
 		
 		extent.flush();
-		try {
-			extent.close();
-		}
-		catch (Exception e){
-			System.out.println("Error closing report");
-		}
 		
 	}
 	
@@ -41,7 +38,7 @@ public class ExtentReport {
 	 ************************************************************/
 	public static ExtentTest startTest(String testname, String[] groups) {
 		ExtentTest test;
-		test = extent.startTest(testname);
+		test = extent.createTest(testname);
 		for (String group : groups)
 			test.assignCategory(group);
 		
@@ -55,8 +52,7 @@ public class ExtentReport {
 	 * @Description : Function to end the extent logger test.
 	 ************************************************************/
 	public static void endTest(ExtentTest test) {
-		extent.endTest(test);
-		extent.flush();
+		//extent.flush();
 	}
 		
 }

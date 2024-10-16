@@ -1,5 +1,6 @@
 package com.gaurav.responsivefight.pages;
 
+import com.aventstack.extentreports.Status;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.openqa.selenium.WebDriver;
@@ -9,7 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.testng.ITestContext;
 
 import com.gaurav.utilities.web.Web_PageBase;
-import com.relevantcodes.extentreports.LogStatus;
+
 
 import static org.junit.Assert.assertEquals;
 
@@ -79,7 +80,7 @@ public class RF_Landing extends Web_PageBase {
         //click warrior button
         this.clickWarriorBtn();
         
-        writeExtentCommentWithScreenshot("Landing : Warrior username eneterd", LogStatus.PASS);
+        writeExtentCommentWithScreenshot("Landing : Warrior username eneterd", Status.PASS);
         return user;
     }
     
@@ -90,19 +91,19 @@ public class RF_Landing extends Web_PageBase {
     	Assert.assertTrue(startBtn.getText().equals("Start your journey "+user));
         
 
-        writeExtentCommentWithScreenshot("Landing : Btn verified with username", LogStatus.PASS);
+        writeExtentCommentWithScreenshot("Landing : Btn verified with username", Status.PASS);
     }
     
     public void startJourney(){
     	//click Start Journey button
         this.clickStartJourneyBtn();
 
-        writeExtentCommentWithScreenshot("Landing : Start Journey", LogStatus.PASS);
+        writeExtentCommentWithScreenshot("Landing : Start Journey", Status.PASS);
     }
 
     public void verifyAppRemoved(){
         assertEquals("Heroku | Application Error",driver.getTitle());
-        writeExtentCommentWithScreenshot("Website Removed", LogStatus.PASS);
+        writeExtentCommentWithScreenshot("Website Removed", Status.PASS);
     }
     
    
