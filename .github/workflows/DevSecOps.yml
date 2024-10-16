@@ -43,7 +43,7 @@ jobs:
         run: mvn clean package
         
   Deploy_BADEV_T4:
-    name: Deploy to BADEV and T4
+    name: Deploy
     needs: Build
     runs-on: ubuntu-latest
     strategy:
@@ -101,7 +101,7 @@ jobs:
           path: target/gatling
 
   Deploy_T2_T5_NFT:
-    name: Deploy to T2, T5, and NFT
+    name: Deploy
     needs: [Functional-Test, Performance-Test]
     runs-on: ubuntu-latest
     strategy:
@@ -159,7 +159,7 @@ jobs:
           path: target/gatling
 
   deploy_stg:
-    name: Deploy to STG
+    name: Deploy Staging
     needs: [E2E-Functional-Test, E2E-Performance-Test]
     runs-on: ubuntu-latest
     steps:
@@ -193,7 +193,7 @@ jobs:
           path: target/Extent
 
   deploy_prod:
-    name: Deploy to PROD
+    name: Deploy Production
     needs: Smoke-Tests
     runs-on: ubuntu-latest
     steps:
