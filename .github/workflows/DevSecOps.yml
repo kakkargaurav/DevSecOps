@@ -40,9 +40,12 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-
+      - uses: s4u/maven-settings-action@v2.5.0
+              with:
+                servers: '[
+                {"id": "github","configuration": {"httpHeaders": {"property": {"name": "Authorization","value": "Bearer ${{ secrets.GITHUB_TOKEN }}"}}}}]'
       - name: Publish package
-        run: mvn package -Dmaven.test.skip          
+        run: mvn deploy -Dmaven.test.skip          
         
   Deploy_BADEV_T4:
     name: Deploy
