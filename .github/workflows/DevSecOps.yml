@@ -61,7 +61,7 @@ jobs:
           cache: maven
       - uses: s4u/maven-settings-action@v3.0.0
         with:
-          servers: '[{"id": "github", "username": "kakkargaurav", "password": "${{ secrets.PAT_TOKEN }}"}]'
+          servers: '[{"id": "github", "username": "kakkargaurav", "password": "${{ secrets.REPO_TOKEN }}"}]'
       - name: Publish package
         run: mvn deploy -Dmaven.test.skip          
         
