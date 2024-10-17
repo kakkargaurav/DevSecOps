@@ -5,6 +5,25 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      sys_func_test:
+        required: true
+        description: "System Test Tag"
+        type: string
+        default: "@system"
+      e2e_func_test:
+        required: true
+        description: "E2E Test Tag"
+        type: string
+        default: "@e2e"
+      e2e_func_ENV:
+        required: true
+        description: "E2E Functional Environment"
+        type: choice
+        default: "T2"
+        options:
+         - T2
+         - T5
 
 jobs:
   Security_Scans:
