@@ -25,10 +25,11 @@ jobs:
         run: |
           echo "Running SAST Scans..."
           # Add SAST tool commands here
-
+          
+      
   Build:
-    name: Build and Package
-    needs: security_scans
+    name: Build and Publish
+    needs: Security_Scans
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -40,8 +41,11 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Package
-        run: mvn clean package -Dmaven.test.skip
+      - name: Publish package
+        run: mvn deploy -Dmaven.test.skip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
         
   Deploy_BADEV_T4:
     name: Deploy
