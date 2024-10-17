@@ -42,10 +42,7 @@ jobs:
           cache: maven
 
       - name: Publish package
-        run: mvn deploy -Dmaven.test.skip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
+        run: mvn package -Dmaven.test.skip          
         
   Deploy_BADEV_T4:
     name: Deploy
