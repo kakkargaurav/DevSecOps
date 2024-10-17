@@ -59,9 +59,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - uses: s4u/maven-settings-action@v2.5.0
+      - uses: s4u/maven-settings-action@v3.0.0
         with:
-          servers: '[{"id": "github","configuration": {"httpHeaders": {"property": {"name": "Authorization","value": "Bearer ${{ secrets.GITHUB_TOKEN }}"}}}}]'
+          servers: '[{"id": "github", "username": "kakkargaurav", "password": "${{ secrets.PAT_TOKEN }}"}]'
       - name: Publish package
         run: mvn deploy -Dmaven.test.skip          
         
