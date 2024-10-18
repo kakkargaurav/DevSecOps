@@ -1,4 +1,12 @@
-<configuration>
-    <logger name="org.apache" level="WARN" />
-    <logger name="httpclient" level="WARN" /> 
+<configuration debug="false">
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date [%level] %logger - %msg %n</pattern>
+        </encoder>
+    </appender>
+    <logger name="org.apache" level="WARN"/>
+
+    <root level="WARN">
+        <appender-ref ref="stdout"/>
+    </root>
 </configuration>
