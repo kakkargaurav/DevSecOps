@@ -24,8 +24,6 @@ import org.testng.annotations.BeforeTest;
 
 import com.gaurav.report.ExtentReport;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-
 public abstract class Web_TestBase {
 	protected WebDriver driver;
 	protected Web_TestBase() {
@@ -80,7 +78,6 @@ public abstract class Web_TestBase {
 			browser=(String) ctx.getCurrentXmlTest().getParameter("Browser");
 		
 		if(browser.equalsIgnoreCase("edge")) {
-			WebDriverManager.edgedriver().setup();
 			EdgeOptions options = new EdgeOptions();
 			options.addArguments("start-maximized"); // open Browser in maximized mode
 			options.addArguments("disable-infobars"); // disabling infobars
@@ -93,17 +90,14 @@ public abstract class Web_TestBase {
 			driver.manage().window().maximize();
 	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		} else if(browser.equalsIgnoreCase("chrome")) {
-			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
 			driver.manage().window().maximize();
 	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		}else if(browser.equalsIgnoreCase("firefox")) {
-			WebDriverManager.firefoxdriver().setup();
 			driver = new FirefoxDriver();
 			driver.manage().window().maximize();
 	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		}else if(browser.equalsIgnoreCase("grid-mac-firefox")) {
-			WebDriverManager.firefoxdriver().setup();
 			DesiredCapabilities cap = new DesiredCapabilities();
 			cap.setBrowserName("firefox");
 			cap.setPlatform(Platform.MAC);
@@ -111,7 +105,6 @@ public abstract class Web_TestBase {
 			driver.manage().window().maximize();
 	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		}else if(browser.equalsIgnoreCase("grid-win-firefox")) {
-			WebDriverManager.firefoxdriver().setup();
 			DesiredCapabilities cap = new DesiredCapabilities();
 			cap.setBrowserName("firefox");
 			cap.setPlatform(Platform.WIN10);
@@ -119,7 +112,6 @@ public abstract class Web_TestBase {
 			driver.manage().window().maximize();
 	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		}else if(browser.equalsIgnoreCase("grid-mac-chrome")) {
-			WebDriverManager.chromedriver().setup();
 			DesiredCapabilities cap = new DesiredCapabilities();
 			cap.setBrowserName("chrome");
 			cap.setPlatform(Platform.MAC);
@@ -127,7 +119,6 @@ public abstract class Web_TestBase {
 			driver.manage().window().maximize();
 	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		}else if(browser.equalsIgnoreCase("grid-win-chrome")) {
-			WebDriverManager.chromedriver().setup();
 			DesiredCapabilities cap = new DesiredCapabilities();
 			cap.setBrowserName("chrome");
 			cap.setPlatform(Platform.WIN10);
@@ -135,7 +126,6 @@ public abstract class Web_TestBase {
 			driver.manage().window().maximize();
 	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		}else if(browser.equalsIgnoreCase("grid-win-edge")) {
-			WebDriverManager.edgedriver().mac().setup();
 			DesiredCapabilities cap=new DesiredCapabilities();
 			cap.setBrowserName("MicrosoftEdge");
 			cap.setPlatform(Platform.WIN10);
@@ -143,7 +133,6 @@ public abstract class Web_TestBase {
 			driver.manage().window().maximize();
 	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		}else if(browser.equalsIgnoreCase("grid-mac-edge")) {
-			WebDriverManager.edgedriver().mac().setup();
 			DesiredCapabilities cap=new DesiredCapabilities();
 			cap.setBrowserName("MicrosoftEdge");
 			cap.setPlatform(Platform.MAC);
@@ -151,7 +140,6 @@ public abstract class Web_TestBase {
 			driver.manage().window().maximize();
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		}else if(browser.equalsIgnoreCase("grid-win-opera")) {
-			WebDriverManager.operadriver().setup();
 			DesiredCapabilities cap = new DesiredCapabilities();
 			cap.setBrowserName("opera");
 			cap.setPlatform(Platform.WIN10);
@@ -166,7 +154,6 @@ public abstract class Web_TestBase {
 			driver.manage().window().maximize();
 	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		}else{
-			WebDriverManager.edgedriver().setup();
 			EdgeOptions options = new EdgeOptions();
 			options.addArguments("start-maximized"); // open Browser in maximized mode
 			options.addArguments("disable-infobars"); // disabling infobars
