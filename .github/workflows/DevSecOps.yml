@@ -134,7 +134,8 @@ jobs:
         run: |
           start_pattern="---- Global Information"
           end_pattern="[INFO] BUILD SUCCESS"
-          extracted_logs=$(grep -A 1000 "$start_pattern" build.log | grep -B 1000 "$end_pattern")
+          extracted_logs=$(awk "/$start_pattern/,/$end_pattern/" build.log)
+          echo "$extracted_logs"
           echo "$extracted_logs" >> $GITHUB_STEP_SUMMARY
 
   Deploy_T2_T5_NFT:
