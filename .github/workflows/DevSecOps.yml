@@ -128,6 +128,14 @@ jobs:
         with:
           name: nft-report
           path: target/gatling
+          
+      - name: Extract relevant logs
+        id: extract_logs
+        run: |
+          start_pattern="---- Global Information"
+          end_pattern="[INFO] BUILD SUCCESS"
+          extracted_logs=$(grep -A 1000 "$start_pattern" build.log | grep -B 1000 "$end_pattern")
+          echo "$extracted_logs" >> $GITHUB_STEP_SUMMARY
 
   Deploy_T2_T5_NFT:
     name: Deploy
