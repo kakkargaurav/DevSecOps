@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Responsive Fight" parallel="none" >
 		<test name="RF - Bus Challenge Edge" preserve-order="true">
