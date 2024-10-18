@@ -103,6 +103,12 @@ jobs:
       - name: Functional Test
         run: mvn -B clean test -Dorg.slf4j.simpleLogger.defaultLogLevel=warn
 
+      - name: Test Summary
+        uses: test-summary/action@v2
+        with:
+          paths: "target/surefire-reports/TEST-*.xml"
+        if: always()
+
       - uses: actions/upload-artifact@v4
         with:
           name: functional-report
@@ -128,15 +134,6 @@ jobs:
         with:
           name: nft-report
           path: target/gatling
-          
-      - name: Extract relevant logs
-        id: extract_logs
-        run: |
-          start_pattern="---- Global Information"
-          end_pattern="[INFO] BUILD SUCCESS"
-          extracted_logs=$(awk "/$start_pattern/,/$end_pattern/" build.log)
-          echo "$extracted_logs"
-          echo "$extracted_logs" >> $GITHUB_STEP_SUMMARY
 
   Deploy_T2_T5_NFT:
     name: Deploy
