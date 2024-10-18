@@ -129,6 +129,12 @@ jobs:
 
       - name: Performance Test
         run: mvn gatling:test
+        
+      - name: Test Summary
+        uses: test-summary/action@v2
+        with:
+          paths: "gatling/**/js/assertions.xml"
+        if: always()
 
       - uses: actions/upload-artifact@v4
         with:
