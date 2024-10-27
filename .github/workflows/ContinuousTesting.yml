@@ -68,28 +68,30 @@ jobs:
         
       - name: Publish package
         run: mvn deploy -Dmaven.test.skip          
-        
-  Deploy_BADEV_T4:
-    name: Deploy
+
+  Ephemeral:
+    name: Build and Deploy Ephimeral
     needs: Build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        environment: [BADEV, T4]
-    environment:
-      name: ${{ matrix.environment }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Deploy to ${{ matrix.environment }}
+      - name: Deploying Components
         run: |
-          echo "Deploying to ${{ matrix.environment }}..."
+          echo "Deploying Component 1"
           # Add deployment script here (e.g., kubectl, Terraform)
-
+          echo "Deploying Component 2"
+          # Add deployment script here (e.g., kubectl, Terraform)
+          echo "Deploying Component 3"
+          # Add deployment script here (e.g., kubectl, Terraform)
+          echo "Deploying Component 4"
+          # Add deployment script here (e.g., kubectl, Terraform)
+          echo "Deploying Component 5"
+          # Add deployment script here (e.g., kubectl, Terraform)       
   Functional-Test:
     name: System Functional Tests
-    needs: Deploy_BADEV_T4
+    needs: Ephemeral
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -116,7 +118,7 @@ jobs:
 
   Performance-Test:
     name: System Performance Tests
-    needs: Deploy_BADEV_T4
+    needs: Ephemeral
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -141,9 +143,29 @@ jobs:
           name: nft-report
           path: target/gatling
 
+
+  Deploy_BADEV_T4:
+    name: Deploy
+    needs: [ Functional-Test, Performance-Test]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        environment: [BADEV, T4]
+    environment:
+      name: ${{ matrix.environment }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to ${{ matrix.environment }}
+        run: |
+          echo "Deploying to ${{ matrix.environment }}..."
+          # Add deployment script here (e.g., kubectl, Terraform)
+
+
   Deploy_T2_T5_NFT:
     name: Deploy
-    needs: [Functional-Test, Performance-Test]
+    needs: Deploy_BADEV_T4
     runs-on: ubuntu-latest
     strategy:
       matrix:
