@@ -144,11 +144,36 @@ jobs:
         with:
           name: nft-report
           path: target/gatling
-
+          
+  Relaibility-Test:
+    name: System Reliablity Tests
+    needs: Ephemeral
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+    
+      - name: Deploy to ${{ matrix.environment }}
+        run: |
+          echo "Running Relaiblity Tests....."
+          # Add deployment script here (e.g., kubectl, Terraform)
+          
+  Observability-Test:
+    name: System Observability Tests
+    needs: Ephemeral
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+    
+      - name: Deploy to ${{ matrix.environment }}
+        run: |
+          echo "Running Observability Tests....."
+          # Add deployment script here (e.g., kubectl, Terraform)
 
   Deploy_BADEV_T4:
     name: Deploy
-    needs: [ Functional-Test, Performance-Test]
+    needs: [ Functional-Test, Performance-Test, Relaibility-Test, Observability-Test]
     runs-on: ubuntu-latest
     strategy:
       matrix:
