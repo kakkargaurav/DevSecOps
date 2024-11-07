@@ -90,7 +90,8 @@ jobs:
           echo "Deploying Component 4"
           # Add deployment script here (e.g., kubectl, Terraform)
           echo "Deploying Component 5"
-          # Add deployment script here (e.g., kubectl, Terraform)       
+          # Add deployment script here (e.g., kubectl, Terraform)   
+          
   Functional-Test:
     name: System Functional Tests
     needs: Ephemeral
@@ -249,10 +250,33 @@ jobs:
         with:
           name: e2e-nft-report
           path: target/gatling
+          
+  SDLC-Control:
+    name: Verify SDLC Control
+    needs: SDLC-Control
+    runs-on: ubuntu-latest
+    environment:
+      name: Ephimeral
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
+      - name: Deploying Components
+        run: |
+          echo "Deploying Component 1"
+          # Add deployment script here (e.g., kubectl, Terraform)
+          echo "Deploying Component 2"
+          # Add deployment script here (e.g., kubectl, Terraform)
+          echo "Deploying Component 3"
+          # Add deployment script here (e.g., kubectl, Terraform)
+          echo "Deploying Component 4"
+          # Add deployment script here (e.g., kubectl, Terraform)
+          echo "Deploying Component 5"
+          # Add deployment script here (e.g., kubectl, Terraform) 
+          
   deploy_stg:
     name: Deploy Staging
-    needs: [E2E-Functional-Test, E2E-Performance-Test]
+    needs: SDLC-Control
     runs-on: ubuntu-latest
     environment:
       name: STG
