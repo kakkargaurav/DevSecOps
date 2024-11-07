@@ -253,7 +253,7 @@ jobs:
           
   SDLC-Control:
     name: Verify SDLC Control
-    needs: SDLC-Control
+    needs: [E2E-Performance-Test, E2E-Functional-Test]
     runs-on: ubuntu-latest
     environment:
       name: Ephimeral
